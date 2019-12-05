@@ -1,24 +1,16 @@
 package com.company;
-
 import java.awt.*;
-
 import java.awt.event.KeyEvent;
-
 import java.awt.event.MouseEvent;
-
 import java.awt.Graphics;
-
 import java.util.ArrayList;
 import java.util.Timer;
 
 public class MyGame extends Game {
-
     public static final String TITLE = "Group Game";
-
-    public static final int SCREEN_WIDTH = 1500;
-
-    public static final int SCREEN_HEIGHT = 1100;
-
+    public static final int SCREEN_WIDTH = 500;
+    public static final int SCREEN_HEIGHT = 500;
+    Weapon axe = new Weapon(20,20,50,20,20);
     public MyGame() {
 
     }
@@ -28,6 +20,7 @@ public class MyGame extends Game {
     }
 
     public void draw(Graphics pen) {
+    axe.draw(pen);
 
     }
 
