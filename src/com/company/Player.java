@@ -6,28 +6,34 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Player {
-    int health;
-    int height;
-    int width;
-    int lives;
-    int x;
-    int y;
-    ArrayList<String> items = new ArrayList<>();
-    Weapon axe;
-    BufferedImage characterSprite;
+    private int health;
+    private int height;
+    private int width;
+    private int lives;
+    private int x;
+    private int y;
+    private String facing = "d";
+    private ArrayList<Item> items = new ArrayList<>();
+    private Weapon[] weaponEquipped = new Weapon[1];
+    private BufferedImage characterSprite;
+    private boolean attackCheck;
 
     public Player(int health, int lives, int height, int width, int x, int y){
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         this.health = health;
         this.lives = lives;
     }
 
     public void draw(Graphics pen) {
+        pen.setColor(Color.BLACK);
         pen.fillRect(x, y, width, height);
     }
 
     public void update(){
+
 
     }
 
@@ -38,24 +44,21 @@ public class Player {
         return false;
     }
 
-    public void loseHealth(Enemy enemy){
-        for (int row = 0; row < enemy.getWidth()+1; row++) {
-            for (int col = 0; col < enemy.getHeight() + 1; col++) {
-                if (this.contains(enemy.getX() + row, enemy.getX() + col)) {
-                    health -= 1;
-                }
-            }
-        }
+    public void loseHealth(){
+        health -= 1;
     }
 
-    public void pickUpItem(ArrayList<String> items, Item item){
-        for (int row = 0; row < item.getWidth()+1; row++) {
-            for (int col = 0; col < item.getHeight() + 1; col++) {
-                if (this.contains(item.getX() + row, item.getX() + col)) {
-                    items.add(new Item(item));
-                }
-            }
-        }
+    public void pickUpWeapon(Weapon weapon){
+        weaponEquipped[0] = weapon;
+    }
+
+    public void pickUpItem(Item item){
+        items.add(new Item(item.getX(), item.getY(), item.getWidth(), item.getHeight(), item.getUse(), item.getVal()));
+    }
+
+    public void jump(){
+        y+=10;
+        y-=10;
     }
 
     public int getHealth() {
@@ -66,27 +69,41 @@ public class Player {
         this.health = health;
     }
 
+    public boolean isAttackCheck() {
+        return attackCheck;
+    }
+
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_W){
-
-        }
-        if(ke.getKeyCode() == KeyEvent.VK_S){
-
+            jump();
         }
         if(ke.getKeyCode() == KeyEvent.VK_A){
-
+            this.x += 10;
+            facing.equals("a");                //FIX THIS. PUT IN MY GAME AND CHANGE VARIABLES
+            attackCheck = true;
         }
         if(ke.getKeyCode() == KeyEvent.VK_D){
+            this.y+=10;
+            facing.equals("d");
+            attackCheck = true;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_SPACE){
+            for (int i = 0; i < items.size(); i++) {
+                items.get(i).useItem();
+            }
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_ENTER){
 
         }
     }
 
-    public useItem(){
-
-    }
-
-    public attack(){
-
+    public void attackDraw(Graphics pen){
+        if(facing.equals("a")){
+            pen.fillRect(x, y+height/2, weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
+        }
+        if(facing.equals("d")){
+            pen.fillRect(x+width, y+height/2, weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
+        }
     }
 }
 

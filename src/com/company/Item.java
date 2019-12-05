@@ -32,5 +32,29 @@ public class Item {
             height=0;
         }
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getUse() {
+        return use;
+    }
+
+    public int getVal() {
+        return val;
+    }
 }
 
