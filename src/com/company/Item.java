@@ -25,6 +25,8 @@ public class Item {
     }
     public void useItem(){
         use --;
+    }
+    public void update(){
         if(use<1){
             x=0;
             y=0;
@@ -32,5 +34,6 @@ public class Item {
             height=0;
         }
     }
+
 }
 
