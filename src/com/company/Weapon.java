@@ -51,6 +51,13 @@ public class Weapon {
         return color;
     }
 
+    public boolean contains(int _x, int _y){
+        if(_x >= this.x && _x <= this.x + this.width && _y >= this.y && _y <= this.y + this.height){
+            return true;
+        }
+        return false;
+    }
+
     public int getWidth() {
         return width;
     }

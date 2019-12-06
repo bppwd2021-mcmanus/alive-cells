@@ -10,11 +10,13 @@ public class MyGame extends Game {
     public static final String TITLE = "Group Game";
     public static final int SCREEN_WIDTH = 500;
     public static final int SCREEN_HEIGHT = 500;
+    public ArrayList<Enemy> EnemyList = new ArrayList<>();
     Weapon axe = new Weapon(20,20,50,20,20, Color.CYAN);
     Player player1 = new Player(50,50,50,50,50,50);
     Item hpotion = new Item(0,0,0,0,0,0);
     Enemy enemy = new Enemy(50,50,50,200,50);
     public MyGame() {
+        makeEnemies();
 
     }
 
@@ -37,15 +39,25 @@ public class MyGame extends Game {
 //            }
 //        }
 
-        for (int row = 0; row < axe.getWidth()+1; row++) {
+        for (int row = 0; row < axe.getWidth() + 1; row++) {
             for (int col = 0; col < axe.getHeight() + 1; col++) {
                 if (player1.contains(axe.getX() + row, axe.getX() + col)) {
                     player1.pickUpWeapon(axe);
                 }
             }
         }
+
         player1.gravity();
-        enemy.follow(player1);
+
+        for (int i = 0; i < EnemyList.size(); i++) {
+            EnemyList.get(i).follow(player1);
+        }
+    }
+
+    public void makeEnemies(){
+        for (int i = 0; i < 1; i++) {
+            EnemyList.add(new Enemy(50,50,50,200,50));
+        }
     }
 
     public void draw(Graphics pen) {
@@ -54,7 +66,17 @@ public class MyGame extends Game {
         if(player1.isAttackCheck()){
             player1.attackDraw(pen);
         }
-        enemy.draw(pen);
+
+        for (int i = 0; i < EnemyList.size(); i++) {
+            EnemyList.get(i).draw(pen);
+        }
+
+        for (int i = 0; i < EnemyList.size(); i++) {
+            if (EnemyList.get(i).getHealth() < 1) {
+                EnemyList.get(i).setWidth(0);
+                EnemyList.get(i).setHeight(0);
+            }
+        }
     }
 
 
@@ -90,6 +112,7 @@ public class MyGame extends Game {
             if(player1.getWeaponEquipped().length > 0) {
                 player1.setAttackCheck(true);
                 player1.setStartAttTimer(true);
+                player1.attackLands(EnemyList);
             }
         }
     }
