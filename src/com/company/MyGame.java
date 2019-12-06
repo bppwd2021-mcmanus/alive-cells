@@ -19,6 +19,9 @@ public class MyGame extends Game {
     }
 
     public void update() {
+
+        player1.playerUpdate();
+
         //Checks to see if player collides with an item
         for (int row = 0; row < hpotion.getWidth() + 1; row++) {
             for (int col = 0; col < hpotion.getHeight() + 1; col++) {
@@ -37,6 +40,7 @@ public class MyGame extends Game {
         for (int row = 0; row < axe.getWidth()+1; row++) {
             for (int col = 0; col < axe.getHeight() + 1; col++) {
                 if (player1.contains(axe.getX() + row, axe.getX() + col)) {
+                    player1.pickUpWeapon(axe);
                 }
             }
         }
@@ -44,10 +48,10 @@ public class MyGame extends Game {
     }
 
     public void draw(Graphics pen) {
-        //axe.draw(pen);
+        axe.draw(pen);
         player1.draw(pen);
         if(player1.isAttackCheck()){
-//            player1.attackDraw(pen);
+            player1.attackDraw(pen);
         }
         enemy.draw(pen);
     }
@@ -66,21 +70,28 @@ public class MyGame extends Game {
             player1.jump();
         }
         if(ke.getKeyCode() == KeyEvent.VK_A){
-            player1.setX(player1.getX() - 10);
-            player1.getFacing().equals("a");                //FIX THIS. PUT IN MY GAME AND CHANGE VARIABLES
-            player1.setAttackCheck(true);
+            player1.setX(player1.getX() - 15);
+            player1.setFacing("a");
         }
         if(ke.getKeyCode() == KeyEvent.VK_D){
-            player1.setX(player1.getX() + 10);
-            player1.getFacing().equals("d");
-            player1.setAttackCheck(true);
+            player1.setX(player1.getX() + 15);
+            player1.setFacing("d");
         }
         if(ke.getKeyCode() == KeyEvent.VK_SPACE){
-            for (int i = 0; i < player1.getItems().size(); i++) {
-                player1.getItems().get(i).useItem();
+            if(player1.getItems().size() > 0) {
+                for (int i = 0; i < player1.getItems().size(); i++) {
+                    player1.getItems().get(i).useItem();
+                }
             }
         }
         if(ke.getKeyCode() == KeyEvent.VK_ENTER){
+<<<<<<< HEAD
+=======
+            if(player1.getWeaponEquipped().length > 0) {
+                player1.setAttackCheck(true);
+                player1.setStartAttTimer(true);
+            }
+>>>>>>> 75656b72d0c709aa612461a44892672178d97da9
         }
     }
 
