@@ -11,17 +11,45 @@ public class MyGame extends Game {
     public static final int SCREEN_WIDTH = 500;
     public static final int SCREEN_HEIGHT = 500;
     Weapon axe = new Weapon(20,20,50,20,20);
+    Player player1 = new Player(50,50,50,50,50,50);
+    Item hpotion = new Item(0,0,0,0,0,0);
+    Enemy enemy = new Enemy(50,50,50,100,50);
     public MyGame() {
 
     }
 
     public void update() {
+        //Checks to see if player collides with an item
+        for (int row = 0; row < hpotion.getWidth() + 1; row++) {
+            for (int col = 0; col < hpotion.getHeight() + 1; col++) {
+                if (player1.contains(hpotion.getX() + row, hpotion.getX() + col)) {
+                }
+            }
+        }
 
+//        for (int row = 0; row < enemy.getWidth()+1; row++) {
+//            for (int col = 0; col < enemy.getHeight() + 1; col++) {
+//                if (player1.contains(enemy.getX() + row, enemy.getX() + col)) {
+//                }
+//            }
+//        }
+
+        for (int row = 0; row < axe.getWidth()+1; row++) {
+            for (int col = 0; col < axe.getHeight() + 1; col++) {
+                if (player1.contains(axe.getX() + row, axe.getX() + col)) {
+                }
+            }
+        }
+        player1.gravity();
     }
 
     public void draw(Graphics pen) {
-    axe.draw(pen);
-
+        //axe.draw(pen);
+        player1.draw(pen);
+        if(player1.isAttackCheck()){
+//            player1.attackDraw(pen);
+        }
+        enemy.draw(pen);
     }
 
 
@@ -34,7 +62,26 @@ public class MyGame extends Game {
     @Override
 
     public void keyPressed(KeyEvent ke) {
-
+        if(ke.getKeyCode() == KeyEvent.VK_W){
+            player1.jump();
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_A){
+            player1.setX(player1.getX() - 10);
+            player1.getFacing().equals("a");                //FIX THIS. PUT IN MY GAME AND CHANGE VARIABLES
+            player1.setAttackCheck(true);
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_D){
+            player1.setX(player1.getX() + 10);
+            player1.getFacing().equals("d");
+            player1.setAttackCheck(true);
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_SPACE){
+            for (int i = 0; i < player1.getItems().size(); i++) {
+                player1.getItems().get(i).useItem();
+            }
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_ENTER){
+        }
     }
 
     @Override

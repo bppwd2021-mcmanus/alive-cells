@@ -25,4 +25,20 @@ public class Weapon {
         pen.setColor(Color.BLACK);
         pen.drawRect(x,y,width,height);
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
 }
