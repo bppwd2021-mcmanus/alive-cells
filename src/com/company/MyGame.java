@@ -13,6 +13,7 @@ public class MyGame extends Game {
     Weapon axe = new Weapon(20,20,50,20,20, Color.CYAN);
     Player player1 = new Player(50,50,50,50,50,50);
     Item hpotion = new Item(0,0,0,0,0,0);
+    Enemy enemy = new Enemy(50,50,50,200,50);
     public MyGame() {
 
     }
@@ -43,6 +44,8 @@ public class MyGame extends Game {
                 }
             }
         }
+        player1.gravity();
+        enemy.follow(player1);
     }
 
     public void draw(Graphics pen) {
@@ -51,6 +54,7 @@ public class MyGame extends Game {
         if(player1.isAttackCheck()){
             player1.attackDraw(pen);
         }
+        enemy.draw(pen);
     }
 
 
@@ -82,6 +86,7 @@ public class MyGame extends Game {
             }
         }
         if(ke.getKeyCode() == KeyEvent.VK_ENTER){
+
             if(player1.getWeaponEquipped().length > 0) {
                 player1.setAttackCheck(true);
                 player1.setStartAttTimer(true);

@@ -12,7 +12,12 @@ public class Player {
     private int lives;
     private int x;
     private int y;
-    private String facing = "";
+
+    private int inity = y;
+    private String facing = "d";
+
+//    private String facing = "";
+
     private ArrayList<Item> items = new ArrayList<>();
     private Weapon[] weaponEquipped = new Weapon[1];
     private BufferedImage characterSprite;
@@ -81,10 +86,13 @@ public class Player {
     }
 
     public void jump(){
-        y+=10;
         y-=10;
     }
-
+    public void gravity() {
+        while(y!=50){
+            y-=2;
+        }
+    }
     public int getHealth() {
         return health;
     }
