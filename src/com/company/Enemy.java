@@ -77,6 +77,21 @@ public class Enemy {
     public void setY(int y) {
         this.y = y;
     }
+    public void setHeight(int h){
+        this.height=h;
+    }
+    public int getHeight(){
+        return height;
+    }
+
+    public void setWidth(int w){
+        this.width=w;
+    }
+    public int getWidth(){
+        return this.width;
+    }
+
+
 
     public String getFacing() {
         return facing;

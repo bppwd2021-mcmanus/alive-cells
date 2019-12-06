@@ -33,7 +33,7 @@ public class MyGame extends Game {
 //        for (int row = 0; row < enemy.getWidth()+1; row++) {
 //            for (int col = 0; col < enemy.getHeight() + 1; col++) {
 //                if (player1.contains(enemy.getX() + row, enemy.getX() + col)) {
-//                }
+//               }
 //            }
 //        }
 
