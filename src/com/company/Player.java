@@ -25,6 +25,7 @@ public class Player {
         this.height = height;
         this.health = health;
         this.lives = lives;
+        this.attackCheck = false;
     }
 
     public void draw(Graphics pen) {
@@ -73,29 +74,35 @@ public class Player {
         return attackCheck;
     }
 
-    public void keyPressed(KeyEvent ke) {
-        if(ke.getKeyCode() == KeyEvent.VK_W){
-            jump();
-        }
-        if(ke.getKeyCode() == KeyEvent.VK_A){
-            this.x += 10;
-            facing.equals("a");                //FIX THIS. PUT IN MY GAME AND CHANGE VARIABLES
-            attackCheck = true;
-        }
-        if(ke.getKeyCode() == KeyEvent.VK_D){
-            this.y+=10;
-            facing.equals("d");
-            attackCheck = true;
-        }
-        if(ke.getKeyCode() == KeyEvent.VK_SPACE){
-            for (int i = 0; i < items.size(); i++) {
-                items.get(i).useItem();
-            }
-        }
-        if(ke.getKeyCode() == KeyEvent.VK_ENTER){
-
-        }
+    public void setAttackCheck(boolean attackCheck) {
+        this.attackCheck = attackCheck;
     }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public String getFacing() {
+        return facing;
+    }
+
+
 
     public void attackDraw(Graphics pen){
         if(facing.equals("a")){

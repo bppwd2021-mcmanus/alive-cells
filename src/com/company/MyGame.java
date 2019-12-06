@@ -45,7 +45,7 @@ public class MyGame extends Game {
         //axe.draw(pen);
         player1.draw(pen);
         if(player1.isAttackCheck()){
-            player1.attackDraw(pen);
+//            player1.attackDraw(pen);
         }
     }
 
@@ -59,7 +59,27 @@ public class MyGame extends Game {
     @Override
 
     public void keyPressed(KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_W){
+            player1.jump();
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_A){
+            player1.setX(player1.getX() - 10);
+            player1.getFacing().equals("a");                //FIX THIS. PUT IN MY GAME AND CHANGE VARIABLES
+            player1.setAttackCheck(true);
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_D){
+            player1.setX(player1.getX() + 10);
+            player1.getFacing().equals("d");
+            player1.setAttackCheck(true);
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_SPACE){
+            for (int i = 0; i < player1.getItems().size(); i++) {
+                player1.getItems().get(i).useItem();
+            }
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_ENTER){
 
+        }
     }
 
     @Override
