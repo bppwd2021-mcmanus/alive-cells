@@ -66,7 +66,7 @@ public class Player {
     }
 
     public void pickUpWeapon(Weapon weapon){
-        Weapon blankWeapon = new Weapon(weapon.getDmg(),weapon.getWidth(),weapon.getHeight(),weapon.getX(),weapon.getY());
+        Weapon blankWeapon = new Weapon(weapon.getDmg(),weapon.getWidth(),weapon.getHeight(),weapon.getX(),weapon.getY(), weapon.getColor());
         weaponEquipped[0] = blankWeapon;
         weapon.setWidth(0);
         weapon.setHeight(0);
@@ -125,15 +125,15 @@ public class Player {
         return facing;
     }
 
-
-
     public void attackDraw(Graphics pen){
         if(facing.equals("a") && weaponEquipped[0] != null && attackCheck == true){
-            pen.fillRect(x-weaponEquipped[0].getWidth()*3, y+weaponEquipped[0].getHeight()/2, y+height/2, weaponEquipped[0].getWidth());
+            pen.setColor(weaponEquipped[0].getColor());
+            pen.fillRect(x-weaponEquipped[0].getHeight(), y*2-weaponEquipped[0].getWidth()/2, weaponEquipped[0].getHeight(), -weaponEquipped[0].getWidth());
 
         }
         if(facing.equals("d")  && weaponEquipped[0] != null && attackCheck == true){
-            pen.fillRect(x+width, y+height/2, weaponEquipped[0].getHeight(), weaponEquipped[0].getWidth());
+            pen.setColor(weaponEquipped[0].getColor());
+            pen.fillRect(x+width, y*2-weaponEquipped[0].getWidth()/2, weaponEquipped[0].getHeight(), -weaponEquipped[0].getWidth());
         }
     }
 }

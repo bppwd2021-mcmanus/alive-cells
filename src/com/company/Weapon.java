@@ -7,6 +7,7 @@ public class Weapon {
    private int height;
    private int x;
    private int y;
+   private Color color;
    public Weapon(){
        dmg = 0;
        width = 0;
@@ -14,16 +15,16 @@ public class Weapon {
        x = 0;
        y = 0;
    }
-    public Weapon(int dmg, int width, int height, int x, int y){
+    public Weapon(int dmg, int width, int height, int x, int y, Color color){
        this.dmg = dmg;
        this.width = width;
        this.height = height;
        this.x = x;
        this.y = y;
+       this.color = color;
     }
     public void draw(Graphics pen) {
-        pen.setColor(Color.BLACK);
-        pen.drawRect(x,y,width,height);
+        pen.fillRect(x,y,width,height);
     }
 
     public void setHeight(int height) {
@@ -44,6 +45,10 @@ public class Weapon {
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public int getWidth() {

@@ -10,7 +10,7 @@ public class MyGame extends Game {
     public static final String TITLE = "Group Game";
     public static final int SCREEN_WIDTH = 500;
     public static final int SCREEN_HEIGHT = 500;
-    Weapon axe = new Weapon(20,20,50,20,20);
+    Weapon axe = new Weapon(20,20,50,20,20, Color.CYAN);
     Player player1 = new Player(50,50,50,50,50,50);
     Item hpotion = new Item(0,0,0,0,0,0);
     public MyGame() {
