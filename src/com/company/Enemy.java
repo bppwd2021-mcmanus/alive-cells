@@ -45,9 +45,6 @@ public class Enemy {
         health -= 1;
     }
 
-    public void jump(){
-        y-=10;
-    }
 
     public int getHealth() {
         return health;
@@ -92,4 +89,15 @@ public class Enemy {
             pen.fillRect(x+width, y+height/2, weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
         }
     }
+
+    public void follow (Player x){
+        if(this.x>x.getX()){
+            this.x--;
+        }
+        else if(this.x<x.getX()){
+            this.x++;
+        }
+    }
+
+
 }

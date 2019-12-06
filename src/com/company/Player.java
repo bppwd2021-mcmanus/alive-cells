@@ -12,12 +12,12 @@ public class Player {
     private int lives;
     private int x;
     private int y;
-<<<<<<< HEAD
+
     private int inity = y;
     private String facing = "d";
-=======
-    private String facing = "";
->>>>>>> 75656b72d0c709aa612461a44892672178d97da9
+
+//    private String facing = "";
+
     private ArrayList<Item> items = new ArrayList<>();
     private Weapon[] weaponEquipped = new Weapon[1];
     private BufferedImage characterSprite;
