@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Player {
+public class Player extends GameObjects {
     private int health;
     private int height;
     private int width;
@@ -26,6 +26,7 @@ public class Player {
     private boolean startAttTimer;
 
     public Player(int health, int lives, int height, int width, int x, int y){
+        super(height, width, x, y);
         this.x = x;
         this.y = y;
         this.width = width;
@@ -88,6 +89,7 @@ public class Player {
     public void jump(){
         y-=10;
     }
+
     public void gravity() {
         while(y!=50){
             y-=2;

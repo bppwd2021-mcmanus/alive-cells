@@ -41,8 +41,8 @@ public class Enemy {
         return false;
     }
 
-    public void loseHealth(){
-        health -= 1;
+    public void loseHealth(Player player1){
+        health -= player1.getWeaponEquipped()[0].getDmg();
     }
 
 
@@ -90,6 +90,15 @@ public class Enemy {
     public String getFacing() {
         return facing;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void attackDraw(Graphics pen){
         if(facing.equals("a")){
             pen.fillRect(x, y+height/2, weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
