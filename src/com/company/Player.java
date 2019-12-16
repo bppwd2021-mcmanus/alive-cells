@@ -133,6 +133,14 @@ public class Player {
         return facing;
     }
 
+    public void attackLands(ArrayList<Enemy> EnemyList) {
+        for (int i = 0; i < EnemyList.size(); i++) {
+            if(weaponEquipped[0].contains(EnemyList.get(i).getX(), EnemyList.get(i).getY()) && weaponEquipped.length > 0){
+                EnemyList.get(i).setHealth(0);
+            }
+        }
+    }
+
     public void attackDraw(Graphics pen){
         if(facing.equals("a") && weaponEquipped[0] != null && attackCheck == true){
             pen.setColor(weaponEquipped[0].getColor());

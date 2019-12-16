@@ -62,6 +62,15 @@ public class Enemy {
 //        this.attackCheck = attackCheck;
 //    }
 
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public int getX() {
         return x;
     }
@@ -77,16 +86,11 @@ public class Enemy {
     public void setY(int y) {
         this.y = y;
     }
-    public void setHeight(int h){
-        this.height=h;
-    }
+
     public int getHeight(){
         return height;
     }
 
-    public void setWidth(int w){
-        this.width=w;
-    }
     public int getWidth(){
         return this.width;
     }
