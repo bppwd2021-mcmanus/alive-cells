@@ -28,10 +28,10 @@ public class MyGame extends Game {
         for (int row = 0; row < hpotion.getWidth() + 1; row++) {
             for (int col = 0; col < hpotion.getHeight() + 1; col++) {
                 if (player1.contains(hpotion.getX() + row, hpotion.getX() + col)) {
+                    player1.pickUpItem(hpotion);
                 }
             }
         }
-
         for (int row = 0; row < enemy.getWidth()+1; row++) {
             for (int col = 0; col < enemy.getHeight() + 1; col++) {
                 if (player1.contains(enemy.getX() + row, enemy.getX() + col)) {
@@ -47,11 +47,32 @@ public class MyGame extends Game {
             }
         }
 
-        player1.gravity();
+        for (int i = 0; i < EnemyList.size(); i++) {
+            if(EnemyList.get(i).getHealth() < 1){
+                EnemyList.remove(EnemyList.get(i));
+            }
+        }
+//        for (int i = 0; i < EnemyList.size(); i++) {
+//            for (int row = 0; row < EnemyList.get(i).getWidth() + 1; row++) {
+//                for (int col = 0; col < EnemyList.get(i).getHeight() + 1; col++) {
+//                    if(player1.getWeaponEquipped().length > 0 && player1.isAttackCheck()) {
+//                        if (EnemyList.get(i).contains(player1.getWeaponEquipped()[0].getX() + row, player1.getWeaponEquipped()[0].getX() + col)) {
+//                            EnemyList.get(i).loseHealth(player1);
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         for (int i = 0; i < EnemyList.size(); i++) {
-            EnemyList.get(i).follow(player1);
+            System.out.println(EnemyList.get(i).getHealth());
         }
+
+//        for (int i = 0; i < EnemyList.size(); i++) {
+//            EnemyList.get(i).follow(player1);
+//        }
+        enemy.follow(player1);
+        player1.gravity();
     }
 
     public void makeEnemies(){
@@ -69,8 +90,7 @@ public class MyGame extends Game {
         }
 
 
-        enemy.draw(pen);
-        enemy.follow(player1);
+
 
         for (int i = 0; i < EnemyList.size(); i++) {
             EnemyList.get(i).draw(pen);
@@ -114,7 +134,6 @@ public class MyGame extends Game {
             }
         }
         if(ke.getKeyCode() == KeyEvent.VK_ENTER){
-
             if(player1.getWeaponEquipped().length > 0) {
                 player1.setAttackCheck(true);
                 player1.setStartAttTimer(true);

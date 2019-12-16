@@ -5,13 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Player {
+public class Player extends GameObjects {
     private int health;
-    private int height;
-    private int width;
+//    private int height;
+//    private int width;
     private int lives;
-    private int x;
-    private int y;
+//    private int x;
+//    private int y;
 
     private int inity = y;
     private String facing = "d";
@@ -26,10 +26,11 @@ public class Player {
     private boolean startAttTimer;
 
     public Player(int health, int lives, int height, int width, int x, int y){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(height, width, x, y);
+//        this.x = x;
+//        this.y = y;
+//        this.width = width;
+//        this.height = height;
         this.health = health;
         this.lives = lives;
         this.attackCheck = false;
@@ -88,6 +89,7 @@ public class Player {
     public void jump(){
         y-=10;
     }
+
     public void gravity() {
         while(y!=50){
             y-=2;
@@ -113,21 +115,21 @@ public class Player {
         return items;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
+//    public int getX() {
+//        return x;
+//    }
+//
+//    public int getY() {
+//        return y;
+//    }
+//
+//    public void setX(int x) {
+//        this.x = x;
+//    }
+//
+//    public void setY(int y) {
+//        this.y = y;
+//    }
 
     public String getFacing() {
         return facing;

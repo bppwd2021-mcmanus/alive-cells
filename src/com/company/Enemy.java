@@ -5,30 +5,27 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Enemy {
+public class Enemy extends GameObjects{
     private int health;
-    private int height;
-    private int width;
-    private int x;
-    private int y;
+//    private int height;
+//    private int width;
+//    private int x;
+//    private int y;
     private String facing = "d";
     private Weapon[] weaponEquipped = new Weapon[1];
 //    private BufferedImage characterSprite;
     private boolean attackCheck;
 
     public Enemy(int health, int height, int width, int x, int y){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(x,y,width,height);
         this.health = health;
         this.attackCheck = false;
     }
 
-    public void draw(Graphics pen) {
-        pen.setColor(Color.GREEN);
-        pen.fillRect(x, y, width, height);
-    }
+//    public void draw(Graphics pen) {
+//        pen.setColor(Color.GREEN);
+//        pen.fillRect(x, y, width, height);
+//    }
 
     public void update(){
 
@@ -41,8 +38,8 @@ public class Enemy {
         return false;
     }
 
-    public void loseHealth(){
-        health -= 1;
+    public void loseHealth(Player player1){
+        health -= player1.getWeaponEquipped()[0].getDmg();
     }
 
 
@@ -63,43 +60,42 @@ public class Enemy {
 //    }
 
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getHeight(){
-        return height;
-    }
-
-    public int getWidth(){
-        return this.width;
-    }
-
-
+//    public void setWidth(int width) {
+//        this.width = width;
+//    }
+//
+//    public void setHeight(int height) {
+//        this.height = height;
+//    }
+//
+//    public int getX() {
+//        return x;
+//    }
+//
+//    public int getY() {
+//        return y;
+//    }
+//
+//    public void setX(int x) {
+//        this.x = x;
+//    }
+//
+//    public void setY(int y) {
+//        this.y = y;
+//    }
 
     public String getFacing() {
         return facing;
     }
+
+//    public int getWidth() {
+//        return width;
+//    }
+//
+//    public int getHeight() {
+//        return height;
+//    }
+
     public void attackDraw(Graphics pen){
         if(facing.equals("a")){
             pen.fillRect(x, y+height/2, weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
