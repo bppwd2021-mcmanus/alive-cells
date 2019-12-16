@@ -45,7 +45,6 @@ public class MyGame extends Game {
             }
         }
         player1.gravity();
-        enemy.follow(player1);
     }
 
     public void draw(Graphics pen) {
@@ -54,7 +53,9 @@ public class MyGame extends Game {
         if(player1.isAttackCheck()){
             player1.attackDraw(pen);
         }
+
         enemy.draw(pen);
+        enemy.follow(player1);
     }
 
 
