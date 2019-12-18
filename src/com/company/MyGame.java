@@ -1,8 +1,12 @@
 package com.company;
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 
@@ -11,35 +15,49 @@ public class MyGame extends Game {
     public static final int SCREEN_WIDTH = 500;
     public static final int SCREEN_HEIGHT = 500;
     public ArrayList<Enemy> EnemyList = new ArrayList<>();
-    Weapon axe = new Weapon(20,20,50,20,20, Color.CYAN);
-    Player player1 = new Player(50,50,50,50,50,50);
+    public BufferedImage enemyImage;
+    Weapon axe;
+    Player player1;
     Item hpotion = new Item(0,0,0,0,0,0);
-    Enemy enemy = new Enemy(50,50,50,200,50);
+    //GameObjects enemy = new Enemy(50,50,50,200,50);
     public MyGame() {
         makeEnemies();
+        try {
+            BufferedImage playerImage = ImageIO.read(new File("Player1.png"));
+            enemyImage = ImageIO.read(new File("Enemy.png"));
+            BufferedImage weaponImage = ImageIO.read(new File("Weapon.png"));
+            player1 = new Player(50,50,50,50,50,50, playerImage);
+            axe = new Weapon(20,20,50,20,20, weaponImage);
+        } catch (
+                IOException ex) {
+
+        }
 
     }
 
     public void update() {
 
-        player1.playerUpdate();
+        ((Player)player1).playerUpdate();
 
         //Checks to see if player collides with an item
         for (int row = 0; row < hpotion.getWidth() + 1; row++) {
             for (int col = 0; col < hpotion.getHeight() + 1; col++) {
                 if (player1.contains(hpotion.getX() + row, hpotion.getX() + col)) {
-                    player1.pickUpItem(hpotion);
+                    ((Player)player1).pickUpItem(hpotion);
                 }
             }
         }
 
-        for (int row = 0; row < axe.getWidth() + 1; row++) {
-            for (int col = 0; col < axe.getHeight() + 1; col++) {
-                if (player1.contains(axe.getX() + row, axe.getX() + col)) {
-                    player1.pickUpWeapon(axe);
-                }
-            }
+        if (player1.intersection(axe)){
+            player1.pickUpWeapon(axe);
         }
+//        for (int row = 0; row < ((Weapon)axe).getWidth() + 1; row++) {
+//            for (int col = 0; col < axe.getHeight() + 1; col++) {
+//                if (player1.contains(axe.getX() + row, axe.getX() + col)) {
+//                    ((Player)player1).pickUpWeapon(axe);
+//                }
+//            }
+//        }
 
         for (int i = 0; i < EnemyList.size(); i++) {
             if(EnemyList.get(i).getHealth() < 1){
@@ -47,6 +65,10 @@ public class MyGame extends Game {
             }
         }
 
+        for (int i = 0; i < EnemyList.size(); i++) {
+//            if(EnemyList.get(i).intersection(((Player)player1).getWeaponEquipped()[0]));
+//                EnemyList.get(i).loseHealth((Player) player1);
+        }
 //        for (int i = 0; i < EnemyList.size(); i++) {
 //            for (int row = 0; row < EnemyList.get(i).getWidth() + 1; row++) {
 //                for (int col = 0; col < EnemyList.get(i).getHeight() + 1; col++) {
@@ -63,7 +85,7 @@ public class MyGame extends Game {
             System.out.println(EnemyList.get(i).getHealth());
         }
 
-        player1.gravity();
+        ((Player)player1).gravity();
 
 //        for (int i = 0; i < EnemyList.size(); i++) {
 //            EnemyList.get(i).follow(player1);
@@ -72,15 +94,15 @@ public class MyGame extends Game {
 
     public void makeEnemies(){
         for (int i = 0; i < 1; i++) {
-            EnemyList.add(new Enemy(50,50,50,200,50));
+            EnemyList.add(new Enemy(50,50,50,200,50, enemyImage));
         }
     }
 
     public void draw(Graphics pen) {
         axe.draw(pen);
         player1.draw(pen);
-        if(player1.isAttackCheck()){
-            player1.attackDraw(pen);
+        if(((Player)player1).isAttackCheck()){
+            ((Player)player1).attackDraw(pen);
         }
 
         for (int i = 0; i < EnemyList.size(); i++) {
@@ -106,28 +128,28 @@ public class MyGame extends Game {
 
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_W){
-            player1.jump();
+            ((Player)player1).changeY( -15);
         }
         if(ke.getKeyCode() == KeyEvent.VK_A){
-            player1.setX(player1.getX() - 15);
-            player1.setFacing("a");
+            ((Player)player1).changeX( -15);
+            ((Player)player1).setFacing("a");
         }
         if(ke.getKeyCode() == KeyEvent.VK_D){
-            player1.setX(player1.getX() + 15);
-            player1.setFacing("d");
+            ((Player)player1).changeX( 15);
+            ((Player)player1).setFacing("d");
         }
         if(ke.getKeyCode() == KeyEvent.VK_SPACE){
-            if(player1.getItems().size() > 0) {
-                for (int i = 0; i < player1.getItems().size(); i++) {
-                    player1.getItems().get(i).useItem();
+            if(((Player)player1).getItems().size() > 0) {
+                for (int i = 0; i < ((Player)player1).getItems().size(); i++) {
+                    ((Player)player1).getItems().get(i).useItem();
                 }
             }
         }
         if(ke.getKeyCode() == KeyEvent.VK_ENTER){
-            if(player1.getWeaponEquipped().length > 0) {
-                player1.setAttackCheck(true);
-                player1.setStartAttTimer(true);
-                player1.attackLands(EnemyList);
+            if(((Player)player1).getWeaponEquipped().length > 0) {
+                ((Player)player1).setAttackCheck(true);
+                ((Player)player1).setStartAttTimer(true);
+                ((Player)player1).attackLands(EnemyList);
             }
         }
     }

@@ -1,28 +1,16 @@
 package com.company;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class Weapon {
+public class Weapon extends GameObjects {
    private int dmg;
-   private int width;
-   private int height;
-   private int x;
-   private int y;
-   private Color color;
-   public Weapon(){
-       dmg = 0;
-       width = 0;
-       height = 0;
-       x = 0;
-       y = 0;
-   }
-    public Weapon(int dmg, int width, int height, int x, int y, Color color){
+
+    public Weapon(int dmg, int width, int height, int x, int y, BufferedImage img){
+       super(height, width, x, y, img);
        this.dmg = dmg;
-       this.width = width;
-       this.height = height;
-       this.x = x;
-       this.y = y;
-       this.color = color;
+       this.img = img;
     }
+
     public void draw(Graphics pen) {
         pen.fillRect(x,y,width,height);
     }
@@ -45,17 +33,6 @@ public class Weapon {
 
     public void setX(int x) {
         this.x = x;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public boolean contains(int _x, int _y){
-        if(_x >= this.x && _x <= this.x + this.width && _y >= this.y && _y <= this.y + this.height){
-            return true;
-        }
-        return false;
     }
 
     public int getWidth() {

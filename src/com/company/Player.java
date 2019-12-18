@@ -7,39 +7,25 @@ import java.util.ArrayList;
 
 public class Player extends GameObjects {
     private int health;
-    private int height;
-    private int width;
     private int lives;
-    private int x;
-    private int y;
 
-    private int inity = y;
     private String facing = "d";
 
 //    private String facing = "";
 
     private ArrayList<Item> items = new ArrayList<>();
     private Weapon[] weaponEquipped = new Weapon[1];
-    private BufferedImage characterSprite;
     private boolean attackCheck;
     private double tagtimer;
     private boolean startAttTimer;
 
-    public Player(int health, int lives, int height, int width, int x, int y){
-        super(height, width, x, y);
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    public Player(int health, int lives, int height, int width, int x, int y, BufferedImage img){
+        super(height, width, x, y, img);
         this.health = health;
         this.lives = lives;
         this.attackCheck = false;
     }
 
-    public void draw(Graphics pen) {
-        pen.setColor(Color.BLACK);
-        pen.fillRect(x, y, width, height);
-    }
 
     public void playerUpdate(){
         if(startAttTimer){
@@ -72,7 +58,7 @@ public class Player extends GameObjects {
     }
 
     public void pickUpWeapon(Weapon weapon){
-        Weapon blankWeapon = new Weapon(weapon.getDmg(),weapon.getWidth(),weapon.getHeight(),weapon.getX(),weapon.getY(), weapon.getColor());
+        Weapon blankWeapon = new Weapon(weapon.getDmg(),weapon.getWidth(),weapon.getHeight(),weapon.getX(),weapon.getY(), weapon.img);
         weaponEquipped[0] = blankWeapon;
         weapon.setWidth(0);
         weapon.setHeight(0);
@@ -124,11 +110,19 @@ public class Player extends GameObjects {
     }
 
     public void setX(int x) {
-        this.x = x;
+        super.x = x;
     }
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void changeX(int number){
+        super.x += number;
+    }
+
+    public void changeY(int number){
+        super.y += number;
     }
 
     public String getFacing() {
@@ -145,13 +139,11 @@ public class Player extends GameObjects {
 
     public void attackDraw(Graphics pen){
         if(facing.equals("a") && weaponEquipped[0] != null && attackCheck == true){
-            pen.setColor(weaponEquipped[0].getColor());
-            pen.fillRect(x-weaponEquipped[0].getHeight(), y*2-weaponEquipped[0].getWidth()/2, weaponEquipped[0].getHeight(), -weaponEquipped[0].getWidth());
+            pen.drawImage(weaponEquipped[0].img, x-weaponEquipped[0].getWidth()*2, y+weaponEquipped[0].getHeight()/2, weaponEquipped[0].getHeight(), weaponEquipped[0].getWidth(), null);
 
         }
         if(facing.equals("d")  && weaponEquipped[0] != null && attackCheck == true){
-            pen.setColor(weaponEquipped[0].getColor());
-            pen.fillRect(x+width, y*2-weaponEquipped[0].getWidth()/2, weaponEquipped[0].getHeight(), -weaponEquipped[0].getWidth());
+            pen.drawImage(weaponEquipped[0].img, x+weaponEquipped[0].getWidth()*2, y+weaponEquipped[0].getHeight()/2, weaponEquipped[0].getHeight(), weaponEquipped[0].getWidth(), null);
         }
     }
 }

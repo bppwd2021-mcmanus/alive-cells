@@ -1,18 +1,21 @@
 package com.company;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class GameObjects {
-    private int height;
-    private int width;
-    private int x;
-    private int y;
+    protected int height;
+    protected int width;
+    protected int x;
+    protected int y;
+    protected BufferedImage img;
 
-    public GameObjects(int height, int width, int x, int y){
+    public GameObjects(int height, int width, int x, int y, BufferedImage img){
         this.height = height;
-        this.width = height;
+        this.width = width;
         this.x = x;
         this.y = y;
+        this.img = img;
     }
 
     public boolean contains(int x, int y){
@@ -23,27 +26,12 @@ public class GameObjects {
     }
 
     public boolean intersection(GameObjects other){
-        int tlcX = 0;
-        int tlcY = 0;
-        int brcX = width+x;
-        int brcY = height+y;
         boolean intersect = false;
+        System.out.println(other.x + other.y + other.width + other.height);
         for (int row = 0; row < other.width+1; row++) {
             for (int col = 0; col < other.height+1; col++) {
                 if(this.contains(other.x+row, other.y+col)){
                     intersect = true;
-                    if(other.x + row > tlcX) {
-                        tlcX = other.x + row;
-                    }
-                    if(other.y + col > tlcY){
-                        tlcY = other.y + col;
-                    }
-                    if(other.x + row < brcX){
-                        brcX = other.x + row;
-                    }
-                    if(other.y + col < brcY){
-                        brcY = other.y + col;
-                    }
                 }
             }
         }
@@ -54,7 +42,7 @@ public class GameObjects {
 
     }
 
-    public void draw(Graphics pen){
-
+    public void draw(Graphics pen) {
+        pen.drawImage(this.img, this.x, this.y, this.width, this.height, null);
     }
 }

@@ -5,22 +5,16 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Enemy {
+public class Enemy extends GameObjects {
     private int health;
-    private int height;
-    private int width;
-    private int x;
-    private int y;
     private String facing = "d";
     private Weapon[] weaponEquipped = new Weapon[1];
 //    private BufferedImage characterSprite;
     private boolean attackCheck;
 
-    public Enemy(int health, int height, int width, int x, int y){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    public Enemy(int health, int height, int width, int x, int y, BufferedImage img){
+        super(height, width, x, y, img);
+        this.img = img;
         this.health = health;
         this.attackCheck = false;
     }
