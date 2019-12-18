@@ -47,6 +47,12 @@ public class MyGame extends Game {
                 }
             }
         }
+        for (int row = 0; row < enemy.getWidth()+1; row++) {
+            for (int col = 0; col < enemy.getHeight() + 1; col++) {
+                if (player1.contains(enemy.getX() + row, enemy.getX() + col)) {
+               }
+            }
+        }
 
         if (player1.intersection(axe)){
             player1.pickUpWeapon(axe);
@@ -64,11 +70,14 @@ public class MyGame extends Game {
                 EnemyList.remove(EnemyList.get(i));
             }
         }
+<<<<<<< HEAD
 
         for (int i = 0; i < EnemyList.size(); i++) {
 //            if(EnemyList.get(i).intersection(((Player)player1).getWeaponEquipped()[0]));
 //                EnemyList.get(i).loseHealth((Player) player1);
         }
+=======
+>>>>>>> 4862c268ad32a68a9159abcdd5866f3dad813914
 //        for (int i = 0; i < EnemyList.size(); i++) {
 //            for (int row = 0; row < EnemyList.get(i).getWidth() + 1; row++) {
 //                for (int col = 0; col < EnemyList.get(i).getHeight() + 1; col++) {
@@ -85,17 +94,23 @@ public class MyGame extends Game {
             System.out.println(EnemyList.get(i).getHealth());
         }
 
+<<<<<<< HEAD
         ((Player)player1).gravity();
 
+=======
+>>>>>>> 4862c268ad32a68a9159abcdd5866f3dad813914
 //        for (int i = 0; i < EnemyList.size(); i++) {
 //            EnemyList.get(i).follow(player1);
 //        }
+        enemy.follow(player1);
+        player1.gravity();
     }
 
     public void makeEnemies(){
         for (int i = 0; i < 1; i++) {
             EnemyList.add(new Enemy(50,50,50,200,50, enemyImage));
         }
+
     }
 
     public void draw(Graphics pen) {
@@ -104,6 +119,9 @@ public class MyGame extends Game {
         if(((Player)player1).isAttackCheck()){
             ((Player)player1).attackDraw(pen);
         }
+
+
+
 
         for (int i = 0; i < EnemyList.size(); i++) {
             EnemyList.get(i).draw(pen);
@@ -115,6 +133,7 @@ public class MyGame extends Game {
                 EnemyList.get(i).setHeight(0);
             }
         }
+
     }
 
 

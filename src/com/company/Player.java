@@ -7,7 +7,15 @@ import java.util.ArrayList;
 
 public class Player extends GameObjects {
     private int health;
+<<<<<<< HEAD
     private int lives;
+=======
+//    private int height;
+//    private int width;
+    private int lives;
+//    private int x;
+//    private int y;
+>>>>>>> 4862c268ad32a68a9159abcdd5866f3dad813914
 
     private String facing = "d";
 
@@ -19,8 +27,17 @@ public class Player extends GameObjects {
     private double tagtimer;
     private boolean startAttTimer;
 
+<<<<<<< HEAD
     public Player(int health, int lives, int height, int width, int x, int y, BufferedImage img){
         super(height, width, x, y, img);
+=======
+    public Player(int health, int lives, int height, int width, int x, int y){
+        super(height, width, x, y);
+//        this.x = x;
+//        this.y = y;
+//        this.width = width;
+//        this.height = height;
+>>>>>>> 4862c268ad32a68a9159abcdd5866f3dad813914
         this.health = health;
         this.lives = lives;
         this.attackCheck = false;
@@ -101,6 +118,7 @@ public class Player extends GameObjects {
         return items;
     }
 
+<<<<<<< HEAD
     public int getX() {
         return x;
     }
@@ -116,6 +134,23 @@ public class Player extends GameObjects {
     public void setY(int y) {
         this.y = y;
     }
+=======
+//    public int getX() {
+//        return x;
+//    }
+//
+//    public int getY() {
+//        return y;
+//    }
+//
+//    public void setX(int x) {
+//        this.x = x;
+//    }
+//
+//    public void setY(int y) {
+//        this.y = y;
+//    }
+>>>>>>> 4862c268ad32a68a9159abcdd5866f3dad813914
 
     public void changeX(int number){
         super.x += number;
