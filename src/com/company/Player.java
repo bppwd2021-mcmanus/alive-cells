@@ -127,11 +127,10 @@ public class Player extends GameObjects {
 
     public void attackLands(ArrayList<Enemy> EnemyList) {
         for (int i = 0; i < EnemyList.size(); i++) {
-            if(weaponEquipped[0] != null && weaponEquipped[0].intersection(EnemyList.get(i)) && EnemyList.get(i).isDmgCheck() == false){
-                System.out.println(EnemyList.get(i).isDmgCheck());
+            if(EnemyList.get(i).intersection(weaponEquipped[0]) && EnemyList.get(i).isDmgCheck() == false) {
+                EnemyList.get(i).loseHealth(this);
                 EnemyList.get(i).setStartDmgTimer(true);
                 EnemyList.get(i).setDmgCheck(true);
-                EnemyList.get(i).loseHealth(this);
             }
         }
     }
@@ -141,14 +140,14 @@ public class Player extends GameObjects {
             weaponEquipped[0].setX(x-weaponEquipped[0].getWidth());
             weaponEquipped[0].setY(y+weaponEquipped[0].getHeight());
             pen.drawRect(weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
-            pen.drawImage(weaponEquipped[0].img, weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight(), null);
+            //pen.drawImage(weaponEquipped[0].img, weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight(), null);
 
         }
         if(facing.equals("d")  && weaponEquipped[0] != null && attackCheck == true){
             weaponEquipped[0].setX(x+weaponEquipped[0].getWidth());
             weaponEquipped[0].setY(y+weaponEquipped[0].getHeight());
             pen.drawRect(weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
-            pen.drawImage(weaponEquipped[0].img, weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight(), null);
+            //pen.drawImage(weaponEquipped[0].img, weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight(), null);
         }
     }
 }

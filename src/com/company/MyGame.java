@@ -22,9 +22,9 @@ public class MyGame extends Game {
     public MyGame() {
         makeEnemies();
         try {
-            BufferedImage playerImage = ImageIO.read(new File("Player1.png"));
+            BufferedImage playerImage = ImageIO.read(new File("Monkey.jpg"));
             enemyImage = ImageIO.read(new File("Enemy.png"));
-            BufferedImage weaponImage = ImageIO.read(new File("Weapon.png"));
+            BufferedImage weaponImage = ImageIO.read(new File("Sword.jpg"));
             player1 = new Player(50,50,50,50,50,50, playerImage);
             axe = new Weapon(20,20,50,20,20, weaponImage);
         } catch (
@@ -72,9 +72,9 @@ public class MyGame extends Game {
 
         //player1.gravity();
 
-        for (int i = 0; i < EnemyList.size(); i++) {
-            EnemyList.get(i).follow(player1);
-        }
+//        for (int i = 0; i < EnemyList.size(); i++) {
+//            EnemyList.get(i).follow(player1);
+//        }
     }
 
     public void makeEnemies(){
