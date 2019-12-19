@@ -62,13 +62,13 @@ public class MyGame extends Game {
             }
         }
 
-        for (int i = 0; i < EnemyList.size(); i++) {
-            if(player1.getWeaponEquipped()[0] != null) {
-                if(EnemyList.get(i).intersection((player1).getWeaponEquipped()[0])){
-                    EnemyList.get(i).loseHealth(player1);
-                }
-            }
-        }
+//        for (int i = 0; i < EnemyList.size(); i++) {
+//            if(player1.getWeaponEquipped()[0] != null) {
+//                if(EnemyList.get(i).intersection((player1).getWeaponEquipped()[0])){
+//                    EnemyList.get(i).loseHealth(player1);
+//                }
+//            }
+//        }
 
         //player1.gravity();
 
@@ -113,7 +113,7 @@ public class MyGame extends Game {
 
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_W){
-            player1.changeY( -15);
+            player1.jump();
         }
         if(ke.getKeyCode() == KeyEvent.VK_A){
             (player1).changeX( -15);

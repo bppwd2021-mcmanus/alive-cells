@@ -27,7 +27,7 @@ public class Player extends GameObjects {
             tagtimer = System.currentTimeMillis();
             startAttTimer = false;
         }
-        if(attackCheck && System.currentTimeMillis() - tagtimer > 500){
+        if(attackCheck && System.currentTimeMillis() - tagtimer > 200){
             attackCheck = false;
         }
 
@@ -68,8 +68,8 @@ public class Player extends GameObjects {
     }
 
     public void jump(){
-        y-=10;
-        y+=10;
+        y-=20;
+        y+=20;
     }
 
     public void gravity() {
@@ -128,6 +128,7 @@ public class Player extends GameObjects {
     public void attackLands(ArrayList<Enemy> EnemyList) {
         for (int i = 0; i < EnemyList.size(); i++) {
             if(weaponEquipped[0] != null && weaponEquipped[0].intersection(EnemyList.get(i)) && EnemyList.get(i).isDmgCheck() == false){
+                System.out.println(EnemyList.get(i).isDmgCheck());
                 EnemyList.get(i).setStartDmgTimer(true);
                 EnemyList.get(i).setDmgCheck(true);
                 EnemyList.get(i).loseHealth(this);
