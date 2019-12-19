@@ -14,6 +14,7 @@ public class Player extends GameObjects {
     private boolean attackCheck;
     private double tagtimer;
     private boolean startAttTimer;
+    private boolean grav=true;
 
     public Player(int health, int lives, int height, int width, int x, int y, BufferedImage img){
         super(height, width, x, y, img);
@@ -27,7 +28,7 @@ public class Player extends GameObjects {
             tagtimer = System.currentTimeMillis();
             startAttTimer = false;
         }
-        if(attackCheck && System.currentTimeMillis() - tagtimer > 200){
+        if(attackCheck && System.currentTimeMillis() - tagtimer > 500){
             attackCheck = false;
         }
 
@@ -68,13 +69,19 @@ public class Player extends GameObjects {
     }
 
     public void jump(){
-        y-=20;
-        y+=20;
+        y-=10;
+        y+=10;
     }
 
-    public void gravity() {
-        while(y!=50){
-            y-=2;
+    public void gravity(Wall[] walls) {
+        for (int i=0; i<walls.length; i++) {
+            if (y+height==walls[i].y && (x<walls[i].x+32 || x+width<walls[i].x)) {
+                grav=false;
+                break;
+            } else { grav=true;}
+        }
+        if (grav) {
+            y+=2;
         }
     }
     public int getHealth() {
@@ -128,7 +135,6 @@ public class Player extends GameObjects {
     public void attackLands(ArrayList<Enemy> EnemyList) {
         for (int i = 0; i < EnemyList.size(); i++) {
             if(weaponEquipped[0] != null && weaponEquipped[0].intersection(EnemyList.get(i)) && EnemyList.get(i).isDmgCheck() == false){
-                System.out.println(EnemyList.get(i).isDmgCheck());
                 EnemyList.get(i).setStartDmgTimer(true);
                 EnemyList.get(i).setDmgCheck(true);
                 EnemyList.get(i).loseHealth(this);
