@@ -7,42 +7,20 @@ import java.util.ArrayList;
 
 public class Player extends GameObjects {
     private int health;
-<<<<<<< HEAD
     private int lives;
-=======
-//    private int height;
-//    private int width;
-    private int lives;
-//    private int x;
-//    private int y;
->>>>>>> 4862c268ad32a68a9159abcdd5866f3dad813914
-
     private String facing = "d";
-
-//    private String facing = "";
-
     private ArrayList<Item> items = new ArrayList<>();
     private Weapon[] weaponEquipped = new Weapon[1];
     private boolean attackCheck;
     private double tagtimer;
     private boolean startAttTimer;
 
-<<<<<<< HEAD
     public Player(int health, int lives, int height, int width, int x, int y, BufferedImage img){
         super(height, width, x, y, img);
-=======
-    public Player(int health, int lives, int height, int width, int x, int y){
-        super(height, width, x, y);
-//        this.x = x;
-//        this.y = y;
-//        this.width = width;
-//        this.height = height;
->>>>>>> 4862c268ad32a68a9159abcdd5866f3dad813914
         this.health = health;
         this.lives = lives;
         this.attackCheck = false;
     }
-
 
     public void playerUpdate(){
         if(startAttTimer){
@@ -75,7 +53,7 @@ public class Player extends GameObjects {
     }
 
     public void pickUpWeapon(Weapon weapon){
-        Weapon blankWeapon = new Weapon(weapon.getDmg(),weapon.getWidth(),weapon.getHeight(),weapon.getX(),weapon.getY(), weapon.img);
+        Weapon blankWeapon = new Weapon(weapon.getDmg(),weapon.getHeight(),weapon.getWidth(),x,y, weapon.img);
         weaponEquipped[0] = blankWeapon;
         weapon.setWidth(0);
         weapon.setHeight(0);
@@ -91,6 +69,7 @@ public class Player extends GameObjects {
 
     public void jump(){
         y-=10;
+        y+=10;
     }
 
     public void gravity() {
@@ -118,7 +97,6 @@ public class Player extends GameObjects {
         return items;
     }
 
-<<<<<<< HEAD
     public int getX() {
         return x;
     }
@@ -134,23 +112,6 @@ public class Player extends GameObjects {
     public void setY(int y) {
         this.y = y;
     }
-=======
-//    public int getX() {
-//        return x;
-//    }
-//
-//    public int getY() {
-//        return y;
-//    }
-//
-//    public void setX(int x) {
-//        this.x = x;
-//    }
-//
-//    public void setY(int y) {
-//        this.y = y;
-//    }
->>>>>>> 4862c268ad32a68a9159abcdd5866f3dad813914
 
     public void changeX(int number){
         super.x += number;
@@ -166,19 +127,27 @@ public class Player extends GameObjects {
 
     public void attackLands(ArrayList<Enemy> EnemyList) {
         for (int i = 0; i < EnemyList.size(); i++) {
-            if(weaponEquipped[0].contains(EnemyList.get(i).getX(), EnemyList.get(i).getY()) && weaponEquipped.length > 0){
-                EnemyList.get(i).setHealth(0);
+            if(weaponEquipped[0] != null && weaponEquipped[0].intersection(EnemyList.get(i)) && EnemyList.get(i).isDmgCheck() == false){
+                EnemyList.get(i).setStartDmgTimer(true);
+                EnemyList.get(i).setDmgCheck(true);
+                EnemyList.get(i).loseHealth(this);
             }
         }
     }
 
     public void attackDraw(Graphics pen){
         if(facing.equals("a") && weaponEquipped[0] != null && attackCheck == true){
-            pen.drawImage(weaponEquipped[0].img, x-weaponEquipped[0].getWidth()*2, y+weaponEquipped[0].getHeight()/2, weaponEquipped[0].getHeight(), weaponEquipped[0].getWidth(), null);
+            weaponEquipped[0].setX(x-weaponEquipped[0].getWidth());
+            weaponEquipped[0].setY(y+weaponEquipped[0].getHeight());
+            pen.drawRect(weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
+            pen.drawImage(weaponEquipped[0].img, weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight(), null);
 
         }
         if(facing.equals("d")  && weaponEquipped[0] != null && attackCheck == true){
-            pen.drawImage(weaponEquipped[0].img, x+weaponEquipped[0].getWidth()*2, y+weaponEquipped[0].getHeight()/2, weaponEquipped[0].getHeight(), weaponEquipped[0].getWidth(), null);
+            weaponEquipped[0].setX(x+weaponEquipped[0].getWidth());
+            weaponEquipped[0].setY(y+weaponEquipped[0].getHeight());
+            pen.drawRect(weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
+            pen.drawImage(weaponEquipped[0].img, weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight(), null);
         }
     }
 }
