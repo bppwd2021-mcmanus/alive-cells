@@ -38,7 +38,11 @@ public class GameObjects {
     }
 
     public void update(){
+        System.out.println("update");
+    }
 
+    public void setImage(BufferedImage newImg){
+        this.img = newImg;
     }
 
     public void draw(Graphics pen) {

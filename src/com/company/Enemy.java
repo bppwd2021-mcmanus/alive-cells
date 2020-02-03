@@ -15,29 +15,56 @@ public class Enemy extends GameObjects {
     private boolean dmgCheck;
     private boolean startDmgTimer;
     private double tagtimer;
+    private int iframes;
+    private int iframesSet = 60;
+    private boolean hit;
+    private BufferedImage hurtImg, enemyImg;
+    private int hurtTimer;
 
 
 
-    public Enemy(int health, int height, int width, int x, int y, BufferedImage img){
-        super(height, width, x, y, img);
-        this.img = img;
+    public Enemy(int health, int height, int width, int x, int y){
+        super(height, width, x, y, null);
+        try {
+            enemyImg = ImageIO.read(new File("Enemy.png"));
+            hurtImg = ImageIO.read(new File("HitImage.png"));
+        } catch (
+                IOException ex) {
+
+        }
+        super.setImage(enemyImg);
         this.health = health;
         this.dmgCheck = false;
     }
 
-    public void draw(Graphics pen) {
-        pen.setColor(Color.GREEN);
-        pen.fillRect(x, y, width, height);
+    public void enemyUpdate(Player player1, boolean enterCheck){
+        iframes ++;
+        if(player1.isAttackLandsCheck() && enterCheck && iframes > 60){
+            iframes = 0;
+        }
+        if(hurtTimer > 0){
+            super.setImage(hurtImg);
+            hurtTimer--;
+        }
+        else{
+            super.setImage(enemyImg);
+        }
     }
 
-    public void enemyUpdate(){
-        if(startDmgTimer){
-            tagtimer = System.currentTimeMillis();
-            startDmgTimer = false;
-        }
-        if(dmgCheck && System.currentTimeMillis() - tagtimer > 1000){
-            dmgCheck = false;
-        }
+    public void setHurtTimer(int hurtTimer) {
+        this.hurtTimer = hurtTimer;
+    }
+
+    public int getIframes() {
+        return iframes;
+    }
+
+    public int getIframesSet() {
+        return iframesSet;
+    }
+
+    public void setIframes(int iframes) {
+        this.iframes = iframes;
     }
 
     public boolean contains(int _x, int _y){
@@ -55,24 +82,16 @@ public class Enemy extends GameObjects {
         return health;
     }
 
+    public double getTagtimer() {
+        return tagtimer;
+    }
+
     public void setWidth(int width) {
         this.width = width;
     }
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public void setDmgCheck(boolean dmgCheck) {
-        this.dmgCheck = dmgCheck;
-    }
-
-    public void setStartDmgTimer(boolean startDmgTimer) {
-        this.startDmgTimer = startDmgTimer;
-    }
-
-    public boolean isDmgCheck() {
-        return dmgCheck;
     }
 
     public void follow (Player x){

@@ -11,14 +11,17 @@ import java.util.ArrayList;
 import java.util.Timer;
 
 public class MyGame extends Game {
-    public static final String TITLE = "Group Game";
+    public static final String TITLE = "Monkey Cells";
     public static final int SCREEN_WIDTH = 500;
     public static final int SCREEN_HEIGHT = 500;
     public ArrayList<Enemy> EnemyList = new ArrayList<>();
-    public BufferedImage enemyImage;
+    public BufferedImage enemyImage, enemyHurtImage;
+    public boolean enterCheck;
     Weapon axe;
     Player player1;
     Item hpotion = new Item(0,0,0,0,0,0);
+    Wall[] wallList = new Wall[] {new Wall(82,100, "T"), new Wall(50,100, "T"),new Wall(18,100, "T"), new Wall(18-32,100, "T")};
+
     public MyGame() {
         makeEnemies();
         try {
@@ -27,6 +30,7 @@ public class MyGame extends Game {
             BufferedImage weaponImage = ImageIO.read(new File("Sword.jpg"));
             player1 = new Player(50,50,50,50,50,50, playerImage);
             axe = new Weapon(20,20,50,20,20, weaponImage);
+            enemyHurtImage = ImageIO.read(new File("HitImage.png"));
         } catch (
                 IOException ex) {
 
@@ -39,7 +43,7 @@ public class MyGame extends Game {
         player1.playerUpdate();
 
         for (int i = 0; i < EnemyList.size(); i++) {
-            EnemyList.get(i).enemyUpdate();
+            EnemyList.get(i).enemyUpdate(player1, enterCheck);
             System.out.println(EnemyList.get(i).getHealth());
         }
 
@@ -62,24 +66,16 @@ public class MyGame extends Game {
             }
         }
 
-//        for (int i = 0; i < EnemyList.size(); i++) {
-//            if(player1.getWeaponEquipped()[0] != null) {
-//                if(EnemyList.get(i).intersection((player1).getWeaponEquipped()[0])){
-//                    EnemyList.get(i).loseHealth(player1);
-//                }
-//            }
-//        }
+        player1.gravity(wallList);
 
-        //player1.gravity();
-
-//        for (int i = 0; i < EnemyList.size(); i++) {
-//            EnemyList.get(i).follow(player1);
-//        }
+        for (int i = 0; i < EnemyList.size(); i++) {
+            EnemyList.get(i).follow(player1);
+        }
     }
 
     public void makeEnemies(){
         for (int i = 0; i < 1; i++) {
-            EnemyList.add(new Enemy(50,50,50,200,50, enemyImage));
+            EnemyList.add(new Enemy(50,50,50,150,50));
         }
     }
 
@@ -88,6 +84,10 @@ public class MyGame extends Game {
         player1.draw(pen);
         if(player1.isAttackCheck()){
             player1.attackDraw(pen);
+        }
+
+        for (int i=0; i<wallList.length; i++) {
+            wallList[i].draw(pen);
         }
 
         for (int i = 0; i < EnemyList.size(); i++) {
@@ -113,7 +113,7 @@ public class MyGame extends Game {
 
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_W){
-            player1.jump();
+            player1.changeY( -15);
         }
         if(ke.getKeyCode() == KeyEvent.VK_A){
             (player1).changeX( -15);
@@ -130,11 +130,15 @@ public class MyGame extends Game {
                 }
             }
         }
-        if(ke.getKeyCode() == KeyEvent.VK_ENTER){
-            if(player1.getWeaponEquipped().length > 0) {
-                player1.setAttackCheck(true);
-                player1.setStartAttTimer(true);
-                player1.attackLands(EnemyList);
+        if(ke.getKeyCode() == KeyEvent.VK_ENTER) {
+            player1.setAttackCheck(true);
+            for (int i = 0; i < EnemyList.size(); i++) {
+                if (player1.getWeaponEquipped().length > 0)/* && EnemyList.get(i).getIframes() > EnemyList.get(i).getIframesSet())*/ {
+                    EnemyList.get(i).setIframes(0);
+                    enterCheck = true;
+                    player1.setStartAttTimer(true);
+                    player1.attackLands(EnemyList);
+                }
             }
         }
     }

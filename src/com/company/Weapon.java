@@ -11,10 +11,6 @@ public class Weapon extends GameObjects {
         this.img = img;
     }
 
-    public void draw(Graphics pen) {
-        pen.fillRect(x,y,width,height);
-    }
-
     public void setHeight(int height) {
         this.height = height;
     }

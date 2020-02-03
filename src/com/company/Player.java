@@ -14,6 +14,8 @@ public class Player extends GameObjects {
     private boolean attackCheck;
     private double tagtimer;
     private boolean startAttTimer;
+    private boolean grav=true;
+    private boolean attackLandsCheck;
 
     public Player(int health, int lives, int height, int width, int x, int y, BufferedImage img){
         super(height, width, x, y, img);
@@ -27,7 +29,7 @@ public class Player extends GameObjects {
             tagtimer = System.currentTimeMillis();
             startAttTimer = false;
         }
-        if(attackCheck && System.currentTimeMillis() - tagtimer > 200){
+        if(attackCheck && System.currentTimeMillis() - tagtimer > 500){
             attackCheck = false;
         }
 
@@ -68,13 +70,18 @@ public class Player extends GameObjects {
     }
 
     public void jump(){
-        y-=20;
-        y+=20;
+        y-=15;
     }
 
-    public void gravity() {
-        while(y!=50){
-            y-=2;
+    public void gravity(Wall[] walls) {
+        for (int i=0; i<walls.length; i++) {
+            if (y+height==walls[i].y && (x<walls[i].x+32 || x+width<walls[i].x)) {
+                grav=false;
+                break;
+            } else { grav=true;}
+        }
+        if (grav) {
+            y+=2;
         }
     }
     public int getHealth() {
@@ -125,18 +132,27 @@ public class Player extends GameObjects {
         return facing;
     }
 
+    public boolean isAttackLandsCheck() {
+        return attackLandsCheck;
+    }
+
+    public void setAttackLandsCheck(boolean attackLandsCheck) {
+        this.attackLandsCheck = attackLandsCheck;
+    }
+
     public void attackLands(ArrayList<Enemy> EnemyList) {
         for (int i = 0; i < EnemyList.size(); i++) {
-            if(EnemyList.get(i).intersection(weaponEquipped[0]) && EnemyList.get(i).isDmgCheck() == false) {
+            if(EnemyList.get(i).intersection(weaponEquipped[0])) {
+                attackLandsCheck = true;
                 EnemyList.get(i).loseHealth(this);
-                EnemyList.get(i).setStartDmgTimer(true);
-                EnemyList.get(i).setDmgCheck(true);
+                attackLandsCheck = false;
+                EnemyList.get(i).setHurtTimer(60);
             }
         }
     }
 
     public void attackDraw(Graphics pen){
-        if(facing.equals("a") && weaponEquipped[0] != null && attackCheck == true){
+        if(facing.equals("a") && weaponEquipped[0] != null){
             weaponEquipped[0].setX(x-weaponEquipped[0].getWidth());
             weaponEquipped[0].setY(y+weaponEquipped[0].getHeight());
             pen.drawRect(weaponEquipped[0].getX(), weaponEquipped[0].getY(), weaponEquipped[0].getWidth(), weaponEquipped[0].getHeight());
