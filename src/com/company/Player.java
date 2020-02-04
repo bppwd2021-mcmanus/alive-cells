@@ -73,17 +73,6 @@ public class Player extends GameObjects {
         y-=15;
     }
 
-    public void gravity(Wall[] walls) {
-        for (int i=0; i<walls.length; i++) {
-            if (y+height==walls[i].y && (x<walls[i].x+32 || x+width<walls[i].x)) {
-                grav=false;
-                break;
-            } else { grav=true;}
-        }
-        if (grav) {
-            y+=2;
-        }
-    }
     public int getHealth() {
         return health;
     }

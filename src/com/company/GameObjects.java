@@ -2,12 +2,14 @@ package com.company;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class GameObjects {
     protected int height;
     protected int width;
     protected int x;
     protected int y;
+    protected boolean grav=true;
     protected BufferedImage img;
 
     public GameObjects(int height, int width, int x, int y, BufferedImage img){
@@ -35,6 +37,19 @@ public class GameObjects {
             }
         }
         return (intersect);
+    }
+
+    public void gravity(ArrayList<Wall> walls) {
+        for (int i=0; i<walls.size(); i++) {
+            if (y+height==walls.get(i).y && (x<walls.get(i).x+32 || x+width<walls.get(i).x) && walls.get(i).solid) {
+                grav=false;
+                break;
+            } else { grav=true;}
+
+        }
+        if (grav) {
+            y+=3;
+        }
     }
 
     public void update(){

@@ -19,12 +19,17 @@ public class Wall {
         y=valy;
         File file = null;
 
-        if (valtile=="T") {
+        if (valtile.equals("T")) {
             file = new File("tiles/top.png");
-        } else if (valtile=="B") {
+        } else if (valtile.equals("B")) {
             file = new File("tiles/bottom.png");
-        } else if (valtile=="L") {
+        } else if (valtile.equals("L")) {
             file = new File("tiles/left.png");
+        } else if (valtile.equals("M")) {
+            file= new File("tiles/mid.png");
+        } else if (valtile.equals("0")) {
+            file= new File("tiles/background.png");
+            solid = false;
         }
 
         try {
